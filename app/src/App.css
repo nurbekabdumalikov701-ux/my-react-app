@@ -1,0 +1,131 @@
+/* Vite shablonining standart uslublarini bekor qilish */
+html, body { margin: 0; padding: 0; }
+body { display: block; min-width: 0; place-items: initial; }
+#root { max-width: none; margin: 0; padding: 0; text-align: left; }
+
+@property --bg1 { syntax: "<color>"; inherits: true; initial-value: #1b6dff; }
+@property --bg2 { syntax: "<color>"; inherits: true; initial-value: #9ad8ff; }
+@property --text { syntax: "<color>"; inherits: true; initial-value: #ffffff; }
+
+.wx, .wx * { box-sizing: border-box; margin: 0; }
+
+.wx {
+  position: relative;
+  min-height: 100vh;
+  overflow-x: hidden;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+  color: var(--text);
+  background: linear-gradient(180deg, var(--bg1), var(--bg2));
+  transition: --bg1 1.4s, --bg2 1.4s, --text 0.8s;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.wx-canvas { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; }
+.wx-flash { position: fixed; inset: 0; background: #dfe9ff; opacity: 0; pointer-events: none; z-index: 0; }
+
+.wx main { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 22px 18px 50px; }
+
+/* Sarlavha va qidiruv */
+.wx header { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+.wx .logo { font-weight: 700; letter-spacing: 2px; font-size: 18px; }
+.wx .right { display: flex; gap: 10px; align-items: center; font-size: 14px; }
+
+.wx .btn {
+  border: 1px solid var(--line);
+  background: var(--glass);
+  color: var(--text);
+  padding: 9px 16px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-family: inherit;
+  cursor: pointer;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: 0.25s;
+}
+.wx .btn:hover { transform: translateY(-2px); }
+.wx .btn.pe { pointer-events: auto; padding: 5px 12px; margin-left: 8px; }
+
+.wx .search { position: relative; flex: 1 1 260px; max-width: 420px; }
+.wx .search input {
+  width: 100%;
+  padding: 11px 18px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--glass);
+  color: var(--text);
+  font-size: 15px;
+  font-family: inherit;
+  outline: none;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+.wx .search input::placeholder { color: var(--text); opacity: 0.65; }
+.wx .dd {
+  position: absolute; top: calc(100% + 8px); left: 0; right: 0; z-index: 5;
+  background: rgba(10, 20, 40, 0.94); color: #fff; border-radius: 16px;
+  max-height: 320px; overflow: auto; box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+}
+.wx .dd button {
+  display: flex; justify-content: space-between; gap: 10px; width: 100%;
+  padding: 11px 16px; background: none; border: 0; color: inherit;
+  font-size: 15px; font-family: inherit; text-align: left; cursor: pointer;
+}
+.wx .dd button:hover { background: rgba(255, 255, 255, 0.12); }
+.wx .dd small { opacity: 0.65; }
+
+/* Yuqori qism: matn + globus */
+.wx .top { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: center; margin-top: 14px; }
+.wx .hero { min-height: 320px; display: flex; flex-direction: column; justify-content: center; text-shadow: 0 8px 40px rgba(0, 0, 0, 0.25); }
+.wx .city { font-size: 22px; opacity: 0.95; }
+.wx .temp { font-size: clamp(96px, 20vw, 190px); font-weight: 200; line-height: 1; letter-spacing: -4px; }
+.wx .desc { font-size: 24px; }
+.wx .sub { opacity: 0.88; margin-top: 8px; }
+.wx .sub.err { color: #ffd0d0; }
+
+.wx .globe-card {
+  position: relative; height: 440px; border-radius: 28px; overflow: hidden;
+  background: radial-gradient(circle at 50% 50%, rgba(10, 20, 45, 0.55), rgba(10, 20, 45, 0.25));
+  border: 1px solid var(--line);
+  box-shadow: 0 20px 44px rgba(0, 0, 0, 0.28);
+  cursor: grab;
+}
+.wx .globe-card:active { cursor: grabbing; }
+.wx .hint {
+  position: absolute; left: 0; right: 0; bottom: 12px; text-align: center;
+  font-size: 12px; color: #fff; opacity: 0.8; pointer-events: none;
+}
+
+/* Bo'limlar */
+.wx h2 { font-size: 13px; letter-spacing: 2px; text-transform: uppercase; opacity: 0.8; margin: 28px 0 12px; }
+.wx .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px; perspective: 900px; }
+.wx .row { display: grid; gap: 10px; perspective: 900px; }
+.wx .hr { grid-template-columns: repeat(auto-fit, minmax(78px, 1fr)); }
+.wx .fc { grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); }
+
+.wx .card {
+  background: var(--glass);
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  padding: 18px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition: transform 0.15s ease-out;
+  transform-style: preserve-3d;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.18);
+}
+.wx .card small { opacity: 0.85; display: block; margin-bottom: 6px; transform: translateZ(20px); }
+.wx .card b { font-size: 26px; font-weight: 600; display: block; transform: translateZ(40px); }
+.wx .row .card { text-align: center; padding: 14px 6px; }
+.wx .row .card span { font-size: 32px; display: block; transform: translateZ(46px); margin: 4px 0; }
+.wx .row .card b { font-size: 19px; }
+.wx .row .card small.lo { margin: 4px 0 0; opacity: 0.7; }
+
+.wx footer { margin-top: 28px; font-size: 12px; opacity: 0.7; }
+
+@media (max-width: 900px) {
+  .wx .top { grid-template-columns: 1fr; }
+  .wx .hero { min-height: 240px; }
+  .wx .globe-card { height: 360px; }
+}
